@@ -1,0 +1,22 @@
+.buttonPage{
+    width: 90%;
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 10px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.buttonPage div{
+    display: flex;
+    justify-content: center;
+    margin-left: 5px;
+}
+
+.buttonPage h1 {
+    margin-left: 10px;
+}
+
+.buttonPage.selected{
+    background-color: rgb(255, 255, 255);
+}
