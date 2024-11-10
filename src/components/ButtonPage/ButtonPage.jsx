@@ -1,13 +1,13 @@
 import "./styles.css"
-import { useState } from 'react';
+import { Link } from "react-router-dom"
 
 function ButtonPage({ logo, title, selectedItem, onClick }){
 
     return(
-        <div className={`buttonPage ${selectedItem ? "selected" : ""}`} onClick={onClick}>
+        <Link className={`buttonPage ${selectedItem ? "selected" : ""}`} onClick={onClick}>
             <div>{logo}</div>
             <h1>{title}</h1>
-        </div>
+        </Link>
     );
 }
 

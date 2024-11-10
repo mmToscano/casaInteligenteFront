@@ -1,0 +1,8 @@
+.myHome{
+    display: flex;
+    flex-direction: column;
+}
+
+.devicesListArea {
+    width: 100%;
+}

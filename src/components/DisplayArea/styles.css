@@ -1,5 +1,6 @@
 .displayArea{
     width: 82vw;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     padding: 15px;
@@ -29,6 +30,9 @@
 .pageArea{
     height: 88%;
     background-color: white;
+    padding-left: 30px;
+    padding-top: 20px;
+    overflow-y: auto;
     
 }
 
@@ -38,6 +42,7 @@ button {
     padding: 10px;
     border-radius: 10px;
     border: none;
+    cursor: pointer;
 }
 
 button:active {
