@@ -1,8 +1,45 @@
 .myHome{
     display: flex;
     flex-direction: column;
+    height: 100vh;
 }
 
-.devicesListArea {
-    width: 100%;
+.headerArea{
+    display: flex;
+    justify-content: space-between;
+}
+
+.headerArea .descriptionArea{
+    display: flex;
+    flex-direction: column;
+}
+
+.descriptionArea h1 {
+    font-size: 25px;
+}
+
+.descriptionArea h2 {
+    font-size: 14px;
+    color: rgb(79, 79, 79);
+}
+
+.roomsListArea{
+    height: 88%;
+    background-color: white;
+    padding-left: 30px;
+    padding-top: 20px;
+    overflow-y: auto;
+}
+
+button {
+    background-color: #ff009590;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+button:active {
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 }

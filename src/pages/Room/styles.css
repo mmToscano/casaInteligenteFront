@@ -1,0 +1,26 @@
+.room{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.room .headerArea{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex: 0;
+}
+
+.headerArea h1 {
+    font-size: 24px;
+}
+
+.deviceListArea{
+    display: flex;
+    flex-direction: column;
+    padding-left: 15px;
+    background-color: white;
+    overflow-y: auto;
+    flex: 1;
+    margin-top: 15px;
+}

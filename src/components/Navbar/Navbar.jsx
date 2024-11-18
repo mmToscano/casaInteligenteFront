@@ -6,14 +6,7 @@ import { useState } from 'react'
 
 import { FaHouseUser, FaBox } from "react-icons/fa";
 
-function Navbar({ changePage }){
-
-    const [selectedButton, setSelectedButton] = useState("casa");
-
-    function setChosenPage(chosenPage){
-        setSelectedButton(chosenPage);
-        changePage(chosenPage);
-    }
+function Navbar(){
 
     return(
         <div className="navbar">
@@ -21,16 +14,14 @@ function Navbar({ changePage }){
 
             <div className="buttonArea">
                 <ButtonPage
+                    to="/myHome"
                     title="Minha Casa"
                     logo={<FaHouseUser />}
-                    selectedItem={selectedButton === "casa"}
-                    onClick={() => setChosenPage("casa")}
                 />
                 <ButtonPage
+                    to="/myRoom"
                     title="Cômodos"
                     logo={<FaBox />}
-                    selectedItem={selectedButton === "comodo"}
-                    onClick={() => setChosenPage("comodo")}
                 />
             </div>
 
