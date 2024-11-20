@@ -1,0 +1,31 @@
+.popover {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    height: 200px;
+    background-color: rgb(128, 128, 128);
+
+    position: absolute;
+    zIndex: 1000;
+    overflow-y: auto;
+}
+
+.popover::-webkit-scrollbar{
+    display: none;
+}
+
+.popover > button {
+    all: unset;
+    width: 100%;
+    font-size: 16px;
+    color: white;
+    padding: 15px;
+}
+
+.popover button:hover{
+    background-color: rgb(165, 165, 165);
+}
+
+.popover button:active{
+    background-color: gray;
+}

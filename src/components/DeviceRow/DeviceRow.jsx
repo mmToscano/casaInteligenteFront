@@ -1,27 +1,27 @@
-import "./styles.css"
+import styles from "./styles.module.css"
 
 import { FaTrash } from "react-icons/fa6"
 
 function DeviceRow({ device }){
     return(
-        <div className="deviceRow">
+        <div className={styles.deviceRow}>
 
-            <div className="descriptionArea">
+            <div className={styles.descriptionArea}>
                 <img src="" alt="imagem ilustrativa"/>
 
-                <div className="interactiveArea">
+                <div className={styles.interactiveArea}>
                     <h1>{device.name}</h1>
-                    <div className="buttonArea">
+                    <div className={styles.buttonArea}>
                         {device.type === "digital" 
 
                         ? 
-                        <div className="buttonArea">
+                        <div className={styles.buttonArea}>
                             <button>Desligar</button>
                             <button>Ligar</button>
                         </div> 
                         
                         : 
-                        <div className="buttonArea">
+                        <div className={styles.buttonArea}>
                             <button>{"< Diminuir"}</button>
                             <button>{"Aumentar >"}</button>
                         </div>

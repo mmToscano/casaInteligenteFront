@@ -1,0 +1,24 @@
+.myDevices {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding-top: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.headerArea{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.devicesListArea {
+    height: 88%;
+    background-color: whitesmoke;
+    padding-left: 30px;
+    padding-top: 20px;
+    overflow-y: auto;
+    margin-top: 15px;
+}
+

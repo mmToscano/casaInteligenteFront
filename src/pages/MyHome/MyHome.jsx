@@ -1,5 +1,5 @@
-import DefaultRow from "../../components/DefaultRow/DefaultRow";
-import "./styles.css"
+import DefaultRow from "../../components/RoomRow/RoomRow";
+import styles from "./styles.module.css"
 
 // fazer um request com os ids e os nomes dos cômodos e apenas isso. Nada mais.
 const rooms = [
@@ -11,17 +11,17 @@ const rooms = [
 
 function MyHome(){
     return(
-        <div className="myHome">
+        <div className={styles.myHome}>
 
-        <h1 className="headerArea"> 
-            <div className="descriptionArea">
+        <div className={styles.headerArea}> 
+            <div className={styles.descriptionArea}>
                 <h1>Minha casa</h1>
                 <h2>Meus cômodos</h2>
             </div>
             <button>Adicionar cômodo</button>
-        </h1>
+        </div>
 
-            <div className="roomsListArea">
+            <div className={styles.roomsListArea}>
                 {rooms.map(room => (
                     <DefaultRow name={room.name} to={"/room/" + room.id}/>
                 ))}

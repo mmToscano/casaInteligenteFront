@@ -1,5 +1,5 @@
 import DeviceRow from "../../components/DeviceRow/DeviceRow";
-import "./styles.css"
+import styles from "./styles.module.css"
 
 import { useParams, Link } from "react-router-dom"
 
@@ -12,15 +12,15 @@ function Room() {
     const { id } = useParams();
 
     return(
-        <div className="room">
+        <div className={styles.room}>
 
-        <div className="headerArea">
+        <div className={styles.headerArea}>
             <Link to= "/myHome"><button>Voltar</button></Link>
             <h1>{room.name.toUpperCase() + id}</h1>
             <button>Adicionar dispositivo</button>
         </div>
 
-        <div className="deviceListArea">
+        <div className={styles.deviceListArea}>
             {room.dispositivos.map(device => (
                 <DeviceRow device={device}/>
             ))}
