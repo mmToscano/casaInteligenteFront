@@ -12,14 +12,13 @@ function DeviceRowInMyDevices({ device }){
     const [showPopover, setShowPopover] = useState(false);
     const [buttonPosition, setButtonPosition] = useState({ top: 0, left: 0 });
 
-    // Function to handle button click and calculate the button's position
     const handleShowPopover = (e) => {
-        const rect = e.target.getBoundingClientRect(); // Get button position
+        const rect = e.target.getBoundingClientRect(); 
         setButtonPosition({
-            top: rect.top + window.scrollY, // Y position of the button
-            left: rect.left + window.scrollX, // X position of the button
+            top: rect.top + window.scrollY, 
+            left: rect.left + window.scrollX, 
         });
-        setShowPopover(!showPopover); // Toggle the visibility of the popover
+        setShowPopover(!showPopover); 
     };
 
 
@@ -32,13 +31,19 @@ function DeviceRowInMyDevices({ device }){
             </div>
 
             <div className={styles.interactiveContainer}>
+
                 <div className={styles.chooseRoomArea}>
                     <h3>Dispositivo associado à:</h3>
                     <button onClick={handleShowPopover}>Nada <IoIosArrowDown/></button>
                     {showPopover && 
                     <Popover/>}
                 </div>
-                <button><FaTrash/></button>
+
+                <div className={styles.removeButtonsArea}>
+                    <button disabled={true}>Desassociar Dispositivo</button>
+                    <button><FaTrash/></button>
+                </div>
+
             </div>
             
         </div>

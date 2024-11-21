@@ -1,15 +1,37 @@
-import DefaultRow from "../../components/RoomRow/RoomRow";
+import RoomRow from "../../components/RoomRow/RoomRow";
 import styles from "./styles.module.css"
 
-// fazer um request com os ids e os nomes dos cômodos e apenas isso. Nada mais.
-const rooms = [
-    {"id": 0, "name": "Garagem", "dispositivos": [{"id": 0, "name": "Luz da garagem", "type": "digital", "category": "Luz"}, {"id": 1, "name": "Portao da garagem", "type": "analogico", "category": "Luz"}]},
-    {"id": 1, "name": "Banheiro", "dispositivos": [{"id": 2, "name": "Luz do banheiro", "type": "digital", "category": "Luz"}]}
-  ];
-
-  
+import { useState, useEffect } from 'react'
 
 function MyHome(){
+
+    const [rooms, setRoom] = useState(null);
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        fetch('https://jsonplaceholder.typicode.com/users')
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Network response was not ok");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            setRoom(data);
+            setLoading(false);
+            console.log("deu")
+          })
+          .catch((error) => {
+            setError(error.message);
+            setLoading(false);
+          });
+      }, []);
+    
+      if (loading) return <p>Loading...</p>;
+      if (error) return <p>Error: {error}</p>;
+
+
     return(
         <div className={styles.myHome}>
 
@@ -23,7 +45,7 @@ function MyHome(){
 
             <div className={styles.roomsListArea}>
                 {rooms.map(room => (
-                    <DefaultRow name={room.name} to={"/room/" + room.id}/>
+                    <RoomRow name={room.name} to={"/room"} state={{"id": room.id, "name": room.name}}/>
                 ))}
             </div>
 

@@ -3,15 +3,14 @@ import styles from "./styles.module.css"
 import { Link } from "react-router-dom"
 import { FaEllipsis, FaTrash } from "react-icons/fa6"
 
-function DefaultRow({ name, to }){
+function DefaultRow({ name, to, state }){
     return(
-        <Link to={to}>
-            <div className={styles.defaultRow}>
+        <div className={styles.defaultRow}>
+            <Link to={to} state={state}>
                 <h1>{name}</h1>
-                <button><FaEllipsis/></button>
+            </Link>
                 <button><FaTrash/></button>
-            </div>
-        </Link>
+        </div>
         
     )
 }

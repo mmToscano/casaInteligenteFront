@@ -10,7 +10,8 @@
 
 .interactiveContainer{
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    
 }
 
 .chooseRoomArea{
@@ -29,6 +30,22 @@
     align-items: center;
     background-color: gray;
     margin-left: 5px;
+}
+
+.removeButtonsArea {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.removeButtonsArea button {
+    background-color: rgb(94, 94, 94);
+}
+
+.removeButtonsArea button:disabled {
+    background-color: rgb(198, 198, 198);
+    cursor: not-allowed;
 }
 
 

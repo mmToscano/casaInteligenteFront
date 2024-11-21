@@ -3,6 +3,7 @@ import styles from "./styles.module.css"
 
 function MyDevices(){
 
+    
 
     const devices = [{"id": 0, "name": "Luz da garagem", "type": "digital", "category": "Luz"}, 
         {"id": 1, "name": "Portao da garagem", "type": "analogico", "category": "Luz"}];
