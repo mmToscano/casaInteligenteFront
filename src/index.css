@@ -4,3 +4,10 @@
   box-sizing: border-box;
   font-size: 16px;
 }
+
+:root {
+  --woody-brown1: #221F21; 
+  --woody-brown2: #383031; 
+  --woody-brown3: #3A2F30; 
+  --cool-orange: #F38064;
+}

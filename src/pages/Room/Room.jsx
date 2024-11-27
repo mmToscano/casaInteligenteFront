@@ -1,63 +1,87 @@
 import DeviceRow from "../../components/DeviceRow/DeviceRow";
+import AddDeviceInRoom from "../../components/AddDeviceInRoom/AddDeviceInRoom";
 import styles from "./styles.module.css"
 
 import { useLocation, Link } from "react-router-dom"
 import { useState, useEffect } from 'react'
+import ModalContainer from "../../components/ModalContainer/ModalContainer";
 
 function Room() {
 
-    //fazer o request do quarto baseado no id recebido no useParams()
-    const room = {"id": 0, "name": "Garagem", "dispositivos": [{"id": 0, "name": "Luz da garagem", "type": "digital", "category": "Luz"}, 
-        {"id": 1, "name": "Portao da garagem", "type": "analogico", "category": "Luz"}]};
+  //fazer o request do quarto baseado no id recebido no useParams()
+  const room = {
+    "id": 0, "name": "Garagem", "dispositivos": [{ "id": 0, "name": "Luz da garagem", "type": "digital", "category": "Luz" },
+    { "id": 1, "name": "Portao da garagem", "type": "analogico", "category": "Luz" }]
+  };
 
-    const location = useLocation();
-    const { id, name } = location.state || {}; 
+  const location = useLocation();
+  const { id, name } = location.state || {};
 
-    const [devices, setDevices] = useState(null);
-    const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(true);
+  //outros
+  const [showModal, setShowModal] = useState(false);
 
-    /*
-    useEffect(() => {
-        fetch('https://jsonplaceholder.typicode.com/users') //aqui deve ter um /id para especificar quais os dispositivos devem ser retornados
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error("Network response was not ok");
-            }
-            return response.json();
-          })
-          .then((data) => {
-            setDevices(data);
-            setLoading(false);
-            console.log("deu")
-          })
-          .catch((error) => {
-            setError(error.message);
-            setLoading(false);
-          });
-      }, []);
-    
-      if (loading) return <p>Loading...</p>;
-      if (error) return <p>Error: {error}</p>;
-      */
+  const openModal = () => setShowModal(true);
+  const closeModal = () => setShowModal(false);
 
-    return(
-        <div className={styles.room}>
+  //get
+  const [devices, setDevices] = useState(null);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-        <div className={styles.headerArea}>
-            <Link to= "/myHome"><button>Voltar</button></Link>
-            <h1>{name.toUpperCase() + id}</h1>
-            <button>Adicionar dispositivo</button>
-        </div>
+  //post
+  const [postResponse, setPostResponse] = useState(null);
 
-        <div className={styles.deviceListArea}>
-            {room.dispositivos.map(device => (
-                <DeviceRow device={device}/>
-            ))}
-        </div>
+  /*
+  useEffect(() => {
+      fetch('https://jsonplaceholder.typicode.com/users') //usar o id para buscar os dispositivos
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          setDevices(data);
+          setLoading(false);
+          console.log("deu")
+        })
+        .catch((error) => {
+          setError(error.message);
+          setLoading(false);
+        });
+    }, []);
+  
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error: {error}</p>;
+    */
 
-        </div>
-    )
+  function handleAdicionarDispositivo() {
+    setShowModal(!showModal);
+  }
+
+
+
+  return (
+    <div className={styles.room}>
+
+      <div className={styles.headerArea}>
+        <Link to="/myHome"><button>Voltar</button></Link>
+        <h1>{name.toUpperCase() + id}</h1>
+        <button onClick={handleAdicionarDispositivo}>Adicionar dispositivo</button>
+      </div>
+
+      <div className={styles.deviceListArea}>
+        {room.dispositivos.map(device => (
+          <DeviceRow device={device} key={device.id}/>
+        ))}
+      </div>
+      {showModal &&
+        <ModalContainer onClose={() => setShowModal(false)} children={<AddDeviceInRoom/>} />
+      }
+
+
+    </div>
+  )
 }
 
 export default Room

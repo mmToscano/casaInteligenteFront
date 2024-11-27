@@ -2,7 +2,7 @@ import styles from "./styles.module.css"
 
 import { FaTrash } from "react-icons/fa6"
 
-function DeviceRow({ device }){
+function DeviceRow({ device}){
     return(
         <div className={styles.deviceRow}>
 

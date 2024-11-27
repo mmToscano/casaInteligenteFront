@@ -5,10 +5,11 @@ import { useState, useEffect } from 'react'
 
 function MyHome(){
 
-    const [rooms, setRoom] = useState(null);
+    const [rooms, setRooms] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
 
+    //request que pega todos os quartos
     useEffect(() => {
         fetch('https://jsonplaceholder.typicode.com/users')
           .then((response) => {
@@ -18,7 +19,7 @@ function MyHome(){
             return response.json();
           })
           .then((data) => {
-            setRoom(data);
+            setRooms(data);
             setLoading(false);
             console.log("deu")
           })
