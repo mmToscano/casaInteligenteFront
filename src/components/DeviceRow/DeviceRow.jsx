@@ -3,6 +3,28 @@ import styles from "./styles.module.css"
 import { FaTrash } from "react-icons/fa6"
 
 function DeviceRow({ device}){
+
+
+    const handleDeviceDelete = async () => {
+        const confirmed = window.confirm("Certeza de que deseja deletar este dispositivo?");
+        if (!confirmed) return;
+    
+        try {
+          const response = await fetch(`/api/items/${device.ID_DISP}`, {
+            method: "DELETE",
+          });
+    
+          if (response.ok) {
+            alert("Item deleted successfully!");
+          } else {
+            throw new Error("Failed to delete the item");
+          }
+        } catch (error) {
+          console.error("Error deleting item:", error);
+          alert("Error deleting the item. Please try again.");
+        }
+      };
+
     return(
         <div className={styles.deviceRow}>
 
@@ -32,7 +54,7 @@ function DeviceRow({ device}){
             </div>
             
 
-            <button><FaTrash/></button>
+            <button onClick={handleDeviceDelete}><FaTrash/></button>
 
         </div>
     )

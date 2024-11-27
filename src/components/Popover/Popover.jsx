@@ -1,13 +1,17 @@
 import styles from "./styles.module.css"
 
-function Popover(){
+import { useState, useEffect } from "react";
+
+function Popover({selectedRoom, rooms}){
+      
 
 
-    const rooms = ["garagem", "quarto","garagem", "quarto","garagem", "quarto","garagem", "quarto","garagem", "quarto"]
+    rooms = ["garagem", "quarto","garagem", "quarto","garagem", "quarto","garagem", "quarto","garagem", "quarto"]
 
     return(
         <div className={styles.popover}>
-            {rooms.map(room => (
+            {rooms.filter(room => room.ID_COMODO != selectedRoom.ID_COMODO).
+            map(room => (
                 <button>{room}</button>
             ))}
         </div>

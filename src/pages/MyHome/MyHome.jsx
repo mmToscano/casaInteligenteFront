@@ -1,17 +1,21 @@
 import RoomRow from "../../components/RoomRow/RoomRow";
 import styles from "./styles.module.css"
 
+import APIURL from "../../variaveisGlobais";
+
 import { useState, useEffect } from 'react'
 
 function MyHome(){
 
-    const [rooms, setRooms] = useState(null);
+    const [showAddRoom, setShowAddRoom] = useState(false);
+
+    const [rooms, setRooms] = useState();
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
 
     //request que pega todos os quartos
     useEffect(() => {
-        fetch('https://jsonplaceholder.typicode.com/users')
+        fetch(`${APIURL}/comodos`)
           .then((response) => {
             if (!response.ok) {
               throw new Error("Network response was not ok");
@@ -21,7 +25,6 @@ function MyHome(){
           .then((data) => {
             setRooms(data);
             setLoading(false);
-            console.log("deu")
           })
           .catch((error) => {
             setError(error.message);
@@ -41,13 +44,17 @@ function MyHome(){
                 <h1>Minha casa</h1>
                 <h2>Meus cômodos</h2>
             </div>
-            <button>Adicionar cômodo</button>
+            <button onClick={() => setShowAddRoom(!showAddRoom)}>Adicionar cômodo</button>
         </div>
 
             <div className={styles.roomsListArea}>
                 {rooms.map(room => (
-                    <RoomRow name={room.name} to={"/room"} state={{"id": room.id, "name": room.name}}/>
+                    <RoomRow idcomodo={room.ID_COMODO} name={room.NOME_COMODO} to={"/room"} state={{"ID_COMODO": room.ID_COMODO, "NOME_COMODO": room.NOME_COMODO}} addState={false} key={room.ID_COMODO}/>
                 ))}
+                {showAddRoom &&
+                  <RoomRow addState={true}/>
+                }
+                
             </div>
 
         </div>

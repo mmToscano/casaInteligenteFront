@@ -118,7 +118,7 @@ function AddDeviceInRoom() {
                </div>
                
             </div>
-            <input type="submit" value="Criar dispositivo" />
+            <input type="submit" value="Criar dispositivo"/>
          </form>
       </div>
    );
