@@ -4,63 +4,78 @@ import AddDeviceInRoom from "../../components/AddDeviceInRoom/AddDeviceInRoom";
 import styles from "./styles.module.css"
 
 import { useState, useEffect } from 'react'
+import APIURL from "../../variaveisGlobais";
 
 function MyDevices() {
 
-    const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
-    /*
+  const [devices, setDevices] = useState(null);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-    const [devices, setDevices] = useState(null);
-    const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(true);
+  const [rooms, setRooms] = useState(null);
 
-    //request que pega todos os dispositivos
-    useEffect(() => {
-        fetch('https://jsonplaceholder.typicode.com/users')
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error("Network response was not ok");
-            }
-            return response.json();
-          })
-          .then((data) => {
-            setDevices(data);
-            setLoading(false);
-            console.log("deu")
-          })
-          .catch((error) => {
-            setError(error.message);
-            setLoading(false);
-          });
-      }, []);
+  //request que pega todos os dispositivos
+  useEffect(() => {
+    fetch(`${APIURL}/dispositivos`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setDevices(data);
+        setLoading(false);
+        console.log(devices)
+      })
+      .catch((error) => {
+        setError(error.message);
+        setLoading(false);
+      });
+  }, []);
 
-      if (loading) return <p>Loading...</p>;
-      if (error) return <p>Error: {error}</p>;
-      */
+  //API que pega os cômodos
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`${APIURL}/comodos`);
+        if (!response.ok) throw new Error("Network response was not ok");
+        const data = await response.json();
+        setRooms(data);
+        setLoading(false);
+      } catch (error) {
+        setError(error.message);
+        setLoading(false);
+      }
+    };
 
-    const devices = [{ "id": 0, "name": "Luz da garagem", "type": "digital", "category": "Luz" },
-    { "id": 1, "name": "Portao da garagem", "type": "analogico", "category": "Luz" }];
+    fetchData();
+  }, []);
 
-    return (
-        <div className={styles.myDevices}>
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
 
-            <div className={styles.headerArea}>
-                <h1>Meus dispositivos</h1>
-                <button onClick={() => setShowModal(!showModal)}>Adicionar dispositivo</button>
-            </div>
+  return (
+    <div className={styles.myDevices}>
 
-            <div className={styles.devicesListArea}>
-                {devices.map(device => (
-                    <DeviceRowInMyDevices device={device} />
-                ))}
-            </div>
-            {showModal &&
-                <ModalContainer onClose={() => setShowModal(false)} children={<AddDeviceInRoom />} />
-            }
+      <div className={styles.headerArea}>
+        <h1>Meus dispositivos</h1>
+        <button onClick={() => setShowModal(!showModal)}>Adicionar dispositivo</button>
+      </div>
 
-        </div>
-    )
+      <div className={styles.devicesListArea}>
+        {devices.map(device => (
+          <DeviceRowInMyDevices rooms={rooms} device={device} key={device.ID_DISP} />
+        ))}
+      </div>
+      {showModal &&
+        <ModalContainer onClose={() => setShowModal(false)} children={<AddDeviceInRoom />} />
+      }
+
+    </div>
+  )
 }
 
 export default MyDevices;
