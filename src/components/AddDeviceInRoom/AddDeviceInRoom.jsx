@@ -1,7 +1,16 @@
+import APIURL from "../../variaveisGlobais";
 import styles from "./styles.module.css";
 import React, { useState, useEffect } from 'react';
 
 function AddDeviceInRoom() {
+
+   const determineTheIdOfTheRoomTheDeviceIsIn = (rooms, device) => {
+      const room = rooms.find((room) => room.NOME_COMODO === device.ID_DISP_COMODO);
+      setFormData((prevFormData) => ({
+         ...prevFormData,
+         ID_DISP_COMODO: room.ID_COMODO
+      }))
+   }
 
    // States for the form data
    const [formData, setFormData] = useState({
@@ -21,15 +30,45 @@ function AddDeviceInRoom() {
       setFormData((prevData) => ({ ...prevData, [name]: value }));
    };
 
-   const handleSubmit = (e) => {
-      e.preventDefault(); // Prevent default form submission
-      console.log("Form submitted:", formData);
-      // Send formData to your API or handle it as needed
+   const handleSubmit = async (e) => {
+      e.preventDefault(); // Prevent default form submission 
+   
+      // Determine the ID of the room and include it in the formData
+      const room = rooms.find((room) => room.NOME_COMODO === formData.ID_DISP_COMODO);
+      if (room) {
+         formData.ID_DISP_COMODO = room.ID_COMODO;
+      } else {
+         alert("No room selected or room not found!");
+         return; // Exit if no valid room ID is found
+      }
+   
+      console.log("Updated Form Data:", formData);
+   
+      try {
+         const response = await fetch(`${APIURL}/dispositivos`, {
+            method: "POST", // Specify POST method
+            headers: {
+               "Content-Type": "application/json", // Specify JSON content type
+            },
+            body: JSON.stringify(formData), // Convert data to JSON string
+         });
+   
+         if (response.ok) {
+            const result = await response.json();
+            alert("Dispositivo adicionado com sucesso!");
+            console.log(result); // Handle the response
+         } else {
+            throw new Error(`Error: ${response.status} ${response.statusText}`);
+         }
+      } catch (error) {
+         console.error("Error adding room:", error);
+         alert("Failed to add the room. Please try again.");
+      }
    };
 
    // Fetch request to get rooms data
    useEffect(() => {
-      fetch('https://jsonplaceholder.typicode.com/users')
+      fetch(`${APIURL}/comodos`)
          .then((response) => {
             if (!response.ok) {
                throw new Error("Network response was not ok");
@@ -94,16 +133,16 @@ function AddDeviceInRoom() {
             <div className={styles.checkBoxInputArea}>
                <h2>Em qual cômodo o dispositivo está: </h2>
                {rooms.map((room) => (
-                  <div className={styles.checkBoxItem} key={room.id}>
+                  <div className={styles.checkBoxItem} key={room.ID_COMODO}>
                      <input
                         type="radio"
                         name="ID_DISP_COMODO"  // Fixed name for the room
-                        value={room.name}  // Value is the room name
-                        checked={formData.ID_DISP_COMODO === room.name}
+                        value={room.NOME_COMODO}  // Value is the room name
+                        checked={formData.ID_DISP_COMODO === room.NOME_COMODO}
                         onChange={handleChange}
-                        id={"check" + room.id}
+                        id={"check" + room.ID_COMODO}
                      />
-                     <label htmlFor={"check" + room.id}>{room.name}</label>
+                     <label htmlFor={"check" + room.ID_COMODO}>{room.NOME_COMODO}</label>
                   </div>
                ))}
                <div className={styles.checkBoxItem}>

@@ -8,6 +8,8 @@
     position: absolute;
     zIndex: 1000;
     overflow-y: auto;
+
+    border-radius: 5px;
 }
 
 .popover::-webkit-scrollbar{

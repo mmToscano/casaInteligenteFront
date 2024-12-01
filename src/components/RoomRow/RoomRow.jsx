@@ -2,18 +2,16 @@ import styles from "./styles.module.css";
 import { Link } from "react-router-dom";
 import { FaTrash } from "react-icons/fa6";
 import { useState } from "react";
-
 import APIURL from "../../variaveisGlobais";
 
-function DefaultRow({ idcomodo, name, to, state, addState }) {
+function DefaultRow({ idcomodo, name, to, addState }) {
   const [inputValue, setInputValue] = useState("");
 
-  // Handle input changes
+
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
   };
 
-  // Handle POST request on button click
   const handleAddRoom = async () => {
     if (!inputValue.trim()) {
       alert("O campo não pode estar vazio!");
@@ -31,7 +29,7 @@ function DefaultRow({ idcomodo, name, to, state, addState }) {
 
       if (response.ok) {
         alert("Cômodo adicionado com sucesso!");
-        setInputValue(""); // Clear the input field
+        setInputValue("");
         window.location.reload();
       } else {
         alert("Erro ao adicionar o cômodo.");
@@ -42,7 +40,7 @@ function DefaultRow({ idcomodo, name, to, state, addState }) {
     }
   };
 
-  const handleDeleteRoom = async() => {
+  const handleDeleteRoom = async () => {
     const confirmed = window.confirm("Certeza de que deseja deletar este quarto?");
     if (!confirmed) return;
 
@@ -52,7 +50,6 @@ function DefaultRow({ idcomodo, name, to, state, addState }) {
       });
 
       if (response.ok) {
-        // Update the state to remove the deleted item
         alert("Item deleted successfully!");
         window.location.reload();
       } else {
@@ -62,13 +59,13 @@ function DefaultRow({ idcomodo, name, to, state, addState }) {
       console.error("Error deleting item:", error);
       alert("Error deleting the item. Please try again.");
     }
-  }
+  };
 
   return (
     <>
-      {addState === false ? (
+      {!addState ? (
         <div className={styles.defaultRow}>
-          <Link to={to} state={state}>
+          <Link to={to.pathname || "#"} state={to.state}>
             <h1>{name}</h1>
           </Link>
           <button onClick={handleDeleteRoom}>
